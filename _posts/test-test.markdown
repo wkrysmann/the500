@@ -1,4 +1,0 @@
----
-title: "dupa"
-subtitle: 
----
