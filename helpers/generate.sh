@@ -1,6 +1,7 @@
 #!/bin/bash
 
 list="list.txt" #list of albums
+notReleasedDir="../bench"
 
 function noExtSpace {
 	local noExtSpace="$(echo -e $1 | sed -e 's/^[[:space:]]//' -e 's/[[:space:]]$//')"
@@ -14,10 +15,6 @@ function spaceToUnderscore {
 function checkLastSign {
 	local checkLastSign="$(echo -e $1 | sed -e 's/[^[:alnum:]]$//')"
 	echo $checkLastSign
-}
-
-function prepareURL {
-echo .
 }
 
 function prepareInfo {
@@ -37,30 +34,45 @@ function prepareInfo {
 	album=$_album
 	artistUrl=$_artistUrl
 	albumUrl=$_albumUrl
-	echo $number; echo $artistUrl; echo $albumUrl
-	echo $artist; echo $album
+
+}
+
+function prepareURL {
+	URL=`echo $artistUrl"-"$albumUrl"-"$number".markdown"`
 }
 
 function getSpotifyURL {
-return
+	return
 }
 
 function getGoogleImg {
-return
+	return
 }
 
+function _echo {
+	echo $1 >> $notReleasedDir/$URL
+}
 function writeContent {
 	_echo "---"
-	_echo "title: \"" -n; _echo $artist -n; _echo "\""
-	_echo "subtitle: "
+	_echo "title: \"$artist - $album\""
+	_echo "subtitle: \"$number\""
+	_echo "author: \"kryss\""
+	_echo "avatar: \"img/authors/kryss.jpg\""
+	_echo "image: \"img/$number.jpg\""
+	_echo "date:"
 	_echo "---"
+	_echo ""
+	_echo "### $artist - $album"
 }
 
 while read line
 do
 
 	prepareInfo
-	getSpotifyURL
-	getGoogleImg
-	#writeContent
+	prepareURL
+	#getSpotifyURL
+	#getGoogleImg
+	> $notReleasedDir/$URL #create or clear file
+	writeContent $notReleasedDir/$URL
+
 done < $list

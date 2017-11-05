@@ -1,0 +1,10 @@
+---
+title: "Prince - 1999"
+subtitle: "163"
+author: "kryss"
+avatar: "img/authors/kryss.jpg"
+image: "img/163.jpg"
+date:
+---
+
+### Prince - 1999

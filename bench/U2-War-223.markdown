@@ -1,0 +1,10 @@
+---
+title: "U2 - War"
+subtitle: "223"
+author: "kryss"
+avatar: "img/authors/kryss.jpg"
+image: "img/223.jpg"
+date:
+---
+
+### U2 - War
