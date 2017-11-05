@@ -27,14 +27,12 @@ function prepareInfo {
 
 	artist=$_artist
 	album=$_album
+	
 	local _artistUrl=$(spaceToUnderscore "$_artist")
 	local _albumUrl=$(spaceToUnderscore "$_album")
 
-	artist=$_artist
-	album=$_album
 	artistUrl=$_artistUrl
 	albumUrl=$_albumUrl
-
 }
 
 function prepareURL {
