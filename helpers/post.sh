@@ -2,17 +2,32 @@
 
 postsDir="../_posts/"
 
-# checking if argument supplied
-if [ $# -ne 1 ]
-  then
-    echo "Wrong number of arguments supplied."
-    exit 1
-fi
+function checkoutGit {
+  git checkout master
+  git pull
+}
 
+function prepare {
+# checking if arguments supplied, or calculating which post is next
+  if [ $# -eq 0 ]; then
+    newPost=`expr $(lastPublishedPost) - "1"`
+  elif [ $# -eq 1 ]; then
+    newPost=$1
+  else
+    echo "Too many arguments passed!"
+    exit 1
+  fi
+}
+
+function lastPublishedPost {
+# find last posted album
+  local _recentPost=`ls -1 ../_posts/|awk -F- '{print $6}'|awk -F. '{print $1}'|sort -nr|grep -v "^$"|tail -n1`
+  echo $_recentPost
+}
 
 function findAlbum {
 # find album corresponding to given number
-  local _album=`ls -1 ../bench/|grep "\-$1\."`
+  local _album=`ls -1 ../bench/|grep "\-$newPost\."`
 
   if [ -z $_album ]; then
     echo "No such post!"
@@ -29,12 +44,17 @@ function buildName {
 }
 
 function createPostEntry {
-# copy content from bench to production path
-  if [ ! -f $postPath ]; then
-    cp ../bench/$album $postPath
-  else
-    echo "Post already exists!"
+# copy content from bench to production path and checking if post doesn't exist already
+  local _existsWithDifferentDate=`ls -1 ../_posts/|grep "\-$newPost\."`
+
+  if [ -f $postPath ]; then
+    echo "Post already exists (with today's date)!"
     exit 1
+  elif [ ! -z $_existsWithDifferentDate ]; then
+    echo "Post already exists (with different date)!"
+    exit 1
+  else
+    cp ../bench/$album $postPath
   fi
 }
 
@@ -46,10 +66,12 @@ function putDate {
 
 function commitToGit {
   git add $postPath
-  git commit -m "created layout for $1 - $album"
+  git commit -m "created layout for $newPost - $album"
 }
 
-album=$(findAlbum $1)
+#checkoutGit
+prepare
+album=$(findAlbum $newPost)
 postName=$(buildName)
 postPath=$postsDir$postName
 createPostEntry
