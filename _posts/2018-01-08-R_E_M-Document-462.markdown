@@ -1,0 +1,10 @@
+---
+title: "R.E.M - Document"
+subtitle: "462"
+author: "kryss"
+avatar: "img/authors/kryss.jpg"
+image: "img/462.jpg"
+date: 2018-01-08 21:37:53
+---
+
+### R.E.M - Document
