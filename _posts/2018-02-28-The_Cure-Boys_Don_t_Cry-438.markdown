@@ -8,3 +8,4 @@ date: 2018-02-28 18:19:03
 ---
 
 ### The Cure - Boys Don't Cry
+Unfortunately this album was not available.
