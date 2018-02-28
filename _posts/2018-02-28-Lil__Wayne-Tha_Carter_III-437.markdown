@@ -8,3 +8,6 @@ date: 2018-02-28 18:26:59
 ---
 
 ### Lil’ Wayne - Tha Carter III
+No, no, no.
+
+I had to skip most of the tracks. I was unable to listen it. Not my style at all.
